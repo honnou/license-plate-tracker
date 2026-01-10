@@ -61,7 +61,7 @@ export default async function GroupDetailPage({ params }: { params: { id: string
         code: groupData.code,
         created_by: groupData.created_by,
         created_at: groupData.created_at,
-        creator_name: creatorProfile?.username,
+        creator_name: (creatorProfile as { username: string } | null)?.username,
         member_count: count || 0,
       }}
       userId={session.user.id}

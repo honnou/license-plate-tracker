@@ -45,7 +45,7 @@ export default function JoinGroupModal({ onClose, onGroupJoined }: JoinGroupModa
       const { data: existingMember } = await supabase
         .from('group_members')
         .select('id')
-        .eq('group_id', group.id)
+        .eq('group_id', (group as any).id)
         .eq('user_id', user.id)
         .single()
 
@@ -57,7 +57,7 @@ export default function JoinGroupModal({ onClose, onGroupJoined }: JoinGroupModa
       const { error: memberError } = await supabase
         .from('group_members')
         .insert({
-          group_id: group.id,
+          group_id: (group as any).id,
           user_id: user.id,
         } as any)
 

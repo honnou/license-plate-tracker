@@ -57,13 +57,13 @@ export default function CreateGroupModal({ onClose, onGroupCreated }: CreateGrou
         .select()
         .single()
 
-      if (groupError) throw groupError
+      if (groupError || !group) throw groupError || new Error('Failed to create group')
 
       // Add creator as member
       const { error: memberError } = await supabase
         .from('group_members')
         .insert({
-          group_id: group.id,
+          group_id: (group as any).id,
           user_id: user.id,
         } as any)
 

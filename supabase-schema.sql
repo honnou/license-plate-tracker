@@ -60,6 +60,17 @@ CREATE INDEX idx_profiles_username ON profiles(username);
 
 -- Row Level Security (RLS) Policies
 
+-- Helper function to check group membership (prevents RLS recursion)
+CREATE OR REPLACE FUNCTION is_group_member(check_group_id UUID, check_user_id UUID)
+RETURNS BOOLEAN AS $$
+BEGIN
+  RETURN EXISTS (
+    SELECT 1 FROM group_members
+    WHERE group_id = check_group_id AND user_id = check_user_id
+  );
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
 -- Enable RLS on all tables
 ALTER TABLE groups ENABLE ROW LEVEL SECURITY;
 ALTER TABLE group_members ENABLE ROW LEVEL SECURITY;
@@ -69,11 +80,7 @@ ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
 -- Groups policies
 CREATE POLICY "Users can view groups they are members of"
   ON groups FOR SELECT
-  USING (
-    id IN (
-      SELECT group_id FROM group_members WHERE user_id = auth.uid()
-    )
-  );
+  USING (is_group_member(id, auth.uid()));
 
 CREATE POLICY "Users can create groups"
   ON groups FOR INSERT
@@ -82,11 +89,7 @@ CREATE POLICY "Users can create groups"
 -- Group members policies
 CREATE POLICY "Users can view members of their groups"
   ON group_members FOR SELECT
-  USING (
-    group_id IN (
-      SELECT group_id FROM group_members WHERE user_id = auth.uid()
-    )
-  );
+  USING (is_group_member(group_id, auth.uid()));
 
 CREATE POLICY "Users can join groups"
   ON group_members FOR INSERT
@@ -95,11 +98,7 @@ CREATE POLICY "Users can join groups"
 -- License plates policies
 CREATE POLICY "Users can view plates in their groups"
   ON license_plates FOR SELECT
-  USING (
-    group_id IN (
-      SELECT group_id FROM group_members WHERE user_id = auth.uid()
-    )
-  );
+  USING (is_group_member(group_id, auth.uid()));
 
 CREATE POLICY "Users can add their own plates"
   ON license_plates FOR INSERT

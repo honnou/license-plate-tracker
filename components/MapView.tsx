@@ -24,7 +24,7 @@ export default function MapView({ groupId, userId }: { groupId: string; userId: 
     const yours = new Set<string>()
     const others = new Set<string>()
 
-    data?.forEach(p => {
+    data?.forEach((p: any) => {
       if (p.user_id === userId) yours.add(p.state)
       else others.add(p.state)
     })

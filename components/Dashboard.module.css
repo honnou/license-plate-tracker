@@ -1,21 +1,21 @@
 .dashboard {
   min-height: 100vh;
-  background: var(--primary-gradient);
 }
 
 .nav {
   background: linear-gradient(
-    135deg,
-    rgba(255, 107, 107, 0.9),
-    rgba(255, 184, 77, 0.9),
-    rgba(255, 238, 88, 0.9),
-    rgba(144, 238, 144, 0.9),
-    rgba(135, 206, 250, 0.9),
-    rgba(147, 112, 219, 0.9),
-    rgba(255, 107, 107, 0.9)
+    90deg,
+    rgba(255, 107, 107, 0.9) 0%,
+    rgba(255, 184, 77, 0.9) 14%,
+    rgba(255, 238, 88, 0.9) 28%,
+    rgba(144, 238, 144, 0.9) 42%,
+    rgba(135, 206, 250, 0.9) 56%,
+    rgba(147, 112, 219, 0.9) 70%,
+    rgba(255, 107, 107, 0.9) 84%,
+    rgba(255, 184, 77, 0.9) 100%
   );
-  background-size: 400% 400%;
-  animation: rainbowShift 15s ease infinite;
+  background-size: 200% 100%;
+  animation: rainbowFlow 8s linear infinite;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   padding: 20px 40px;

@@ -29,7 +29,7 @@ body {
 }
 
 body {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4a5f7a 0%, #5d4e6d 50%, #3d5a5f 100%);
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
@@ -45,7 +45,7 @@ body::before {
   bottom: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.08;
+  opacity: 0.25;
   background-image:
     /* Distant mountains */
     linear-gradient(to bottom, transparent 50%, rgba(34, 80, 70, 0.3) 50%, rgba(34, 80, 70, 0.3) 65%, transparent 65%),
@@ -88,15 +88,12 @@ body::before {
 }
 
 /* Rainbow gradient animation for glass effects */
-@keyframes rainbowShift {
+@keyframes rainbowFlow {
   0% {
     background-position: 0% 50%;
   }
-  50% {
-    background-position: 100% 50%;
-  }
   100% {
-    background-position: 0% 50%;
+    background-position: 200% 50%;
   }
 }
 

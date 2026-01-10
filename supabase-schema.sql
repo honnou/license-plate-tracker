@@ -143,26 +143,3 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 CREATE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users
   FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
-
--- Storage bucket for license plate photos
-INSERT INTO storage.buckets (id, name, public)
-VALUES ('license-plates', 'license-plates', true);
-
--- Storage policies
-CREATE POLICY "Allow authenticated users to upload license plates"
-  ON storage.objects FOR INSERT
-  WITH CHECK (
-    bucket_id = 'license-plates' AND
-    auth.role() = 'authenticated'
-  );
-
-CREATE POLICY "Allow public to view license plates"
-  ON storage.objects FOR SELECT
-  USING (bucket_id = 'license-plates');
-
-CREATE POLICY "Users can delete their own uploads"
-  ON storage.objects FOR DELETE
-  USING (
-    bucket_id = 'license-plates' AND
-    auth.uid()::text = (storage.foldername(name))[1]
-  );

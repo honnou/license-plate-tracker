@@ -94,19 +94,89 @@ body::after {
   animation: cloudsFloat 100s ease-in-out infinite reverse;
 }
 
-/* Rainbow gradient animation for glass effects */
-@keyframes rainbowFlow {
+/* Rainbow gradient animation - now using hue-rotate for better browser support */
+@keyframes rainbowShift {
   0% {
-    background-position: 0% center;
+    filter: hue-rotate(0deg);
   }
   100% {
-    background-position: -200% center;
+    filter: hue-rotate(360deg);
+  }
+}
+
+/* Animated road at bottom of page */
+#root::before {
+  content: "";
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background:
+    /* Road */
+    linear-gradient(to bottom, #4a4a4a 0%, #3a3a3a 100%);
+  border-top: 3px solid #666;
+  z-index: 999;
+  pointer-events: none;
+}
+
+/* Road lane markings */
+#root::after {
+  content: "";
+  position: fixed;
+  bottom: 35px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 20px,
+    #ffdd00 20px,
+    #ffdd00 60px,
+    transparent 60px,
+    transparent 80px
+  );
+  z-index: 1000;
+  pointer-events: none;
+  animation: roadScroll 3s linear infinite;
+}
+
+@keyframes roadScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-80px);
+  }
+}
+
+/* Car driving on the road */
+body > div::before {
+  content: "🚗";
+  position: fixed;
+  bottom: 15px;
+  left: -60px;
+  font-size: 40px;
+  z-index: 1001;
+  pointer-events: none;
+  animation: carDrive 8s linear infinite;
+  transform: scaleX(-1); /* Flip car to face right */
+}
+
+@keyframes carDrive {
+  0% {
+    left: -60px;
+  }
+  100% {
+    left: 100%;
   }
 }
 
 #root {
   position: relative;
   z-index: 1;
+  padding-bottom: 80px; /* Space for road */
 }
 
 a {

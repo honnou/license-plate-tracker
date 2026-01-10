@@ -3,20 +3,8 @@
 }
 
 .nav {
-  background: linear-gradient(
-    -90deg,
-    #ff6b6b 0%,
-    #ffb84d 12.5%,
-    #ffee58 25%,
-    #90ee90 37.5%,
-    #87cefa 50%,
-    #9370db 62.5%,
-    #ff6b6b 75%,
-    #ffb84d 87.5%,
-    #ffee58 100%
-  );
-  background-size: 300% 100%;
-  animation: rainbowFlow 10s linear infinite;
+  position: relative;
+  background: linear-gradient(90deg, #ff6b6b, #ffb84d, #ffee58, #90ee90, #87cefa, #9370db);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   padding: 20px 40px;
@@ -27,6 +15,16 @@
     0 8px 32px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  animation: rainbowShift 8s linear infinite;
+}
+
+@keyframes rainbowShift {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
 }
 
 .nav h1 {

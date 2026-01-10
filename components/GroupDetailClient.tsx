@@ -82,6 +82,11 @@ export default function GroupDetailClient({ group, userId }: GroupDetailClientPr
           onPlateAdded={handlePlateAdded}
         />
       )}
+
+      {/* Highway Sign */}
+      <div className="highway-sign">
+        25 Miles to<br />Seattle
+      </div>
     </div>
   )
 }

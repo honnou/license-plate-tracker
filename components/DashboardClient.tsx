@@ -89,6 +89,11 @@ export default function DashboardClient({ groups: initialGroups, username }: Das
           onGroupJoined={refreshGroups}
         />
       )}
+
+      {/* Highway Sign */}
+      <div className="highway-sign">
+        25 Miles to<br />Seattle
+      </div>
     </div>
   )
 }

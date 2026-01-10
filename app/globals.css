@@ -120,26 +120,26 @@ body::after {
   pointer-events: none;
 }
 
-/* Road lane markings */
+/* Road lane markings - made more visible */
 #root::after {
   content: "";
   position: fixed;
   bottom: 35px;
   left: 0;
-  right: 0;
-  height: 4px;
+  width: 200%;
+  height: 6px;
   background: repeating-linear-gradient(
     90deg,
     transparent 0px,
     transparent 20px,
-    #ffdd00 20px,
-    #ffdd00 60px,
-    transparent 60px,
-    transparent 80px
+    #ffff00 20px,
+    #ffff00 50px,
+    transparent 50px,
+    transparent 70px
   );
   z-index: 1000;
   pointer-events: none;
-  animation: roadScroll 3s linear infinite;
+  animation: roadScroll 2s linear infinite;
 }
 
 @keyframes roadScroll {
@@ -147,8 +147,34 @@ body::after {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-80px);
+    transform: translateX(-70px);
   }
+}
+
+/* Highway sign */
+.highway-sign {
+  position: fixed;
+  bottom: 100px;
+  right: 40px;
+  background: #1e5a1e;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  border: 3px solid white;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1002;
+  pointer-events: none;
+}
+
+.highway-sign::before {
+  content: "🛣️";
+  display: block;
+  font-size: 24px;
+  margin-bottom: 5px;
 }
 
 /* Car driving on the road */

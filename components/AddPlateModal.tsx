@@ -77,7 +77,7 @@ export default function AddPlateModal({ groupId, userId, onClose, onPlateAdded }
           is_special: isSpecial,
           special_type: isSpecial && specialType ? specialType : null,
           points,
-        })
+        } as any)
 
       if (insertError) throw insertError
 

@@ -14,6 +14,14 @@ export default function Gallery({ groupId }: { groupId: string }) {
 
   useEffect(() => {
     loadPlates()
+
+    // Real-time subscription for new plates
+    const channel = supabase
+      .channel(`gallery-${groupId}`)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'license_plates', filter: `group_id=eq.${groupId}` }, loadPlates)
+      .subscribe()
+
+    return () => { supabase.removeChannel(channel) }
   }, [groupId])
 
   const loadPlates = async () => {

@@ -66,7 +66,7 @@ export default function Leaderboard({ groupId }: { groupId: string }) {
           </div>
           {leaderboard.map(e => (
             <div key={e.user_id} className={`${styles.row} ${styles[`rank${e.rank}`]}`}>
-              <div className={styles.rank}>{e.rank}</div>
+              <div className={styles.rank}>{e.rank === 1 ? '👑' : e.rank}</div>
               <div className={styles.player}>{e.username}</div>
               <div>{e.states_collected}</div>
               <div>{e.states_remaining}</div>

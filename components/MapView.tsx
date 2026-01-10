@@ -13,6 +13,14 @@ export default function MapView({ groupId, userId }: { groupId: string; userId: 
 
   useEffect(() => {
     loadStates()
+
+    // Real-time subscription for state updates
+    const channel = supabase
+      .channel(`map-${groupId}`)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'license_plates', filter: `group_id=eq.${groupId}` }, loadStates)
+      .subscribe()
+
+    return () => { supabase.removeChannel(channel) }
   }, [groupId, userId])
 
   const loadStates = async () => {

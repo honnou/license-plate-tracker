@@ -124,22 +124,23 @@ body::after {
 #root::after {
   content: "";
   position: fixed;
-  bottom: 35px;
+  bottom: 37px;
   left: 0;
   width: 200%;
-  height: 6px;
+  height: 8px;
   background: repeating-linear-gradient(
     90deg,
     transparent 0px,
-    transparent 20px,
-    #ffff00 20px,
-    #ffff00 50px,
-    transparent 50px,
-    transparent 70px
+    transparent 15px,
+    #ffff00 15px,
+    #ffff00 45px,
+    transparent 45px,
+    transparent 60px
   );
   z-index: 1000;
   pointer-events: none;
   animation: roadScroll 2s linear infinite;
+  box-shadow: 0 0 4px rgba(255, 255, 0, 0.5);
 }
 
 @keyframes roadScroll {

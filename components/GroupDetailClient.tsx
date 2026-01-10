@@ -7,6 +7,7 @@ import AddPlateModal from './AddPlateModal'
 import Leaderboard from './Leaderboard'
 import MapView from './MapView'
 import Gallery from './Gallery'
+import VisualMap from './VisualMap'
 import styles from './GroupDetail.module.css'
 
 interface GroupDetailClientProps {
@@ -14,7 +15,7 @@ interface GroupDetailClientProps {
   userId: string
 }
 
-type Tab = 'leaderboard' | 'map' | 'gallery'
+type Tab = 'leaderboard' | 'map' | 'gallery' | 'visual-map'
 
 export default function GroupDetailClient({ group, userId }: GroupDetailClientProps) {
   const [activeTab, setActiveTab] = useState<Tab>('leaderboard')
@@ -58,7 +59,13 @@ export default function GroupDetailClient({ group, userId }: GroupDetailClientPr
           className={`${styles.tab} ${activeTab === 'map' ? styles.active : ''}`}
           onClick={() => setActiveTab('map')}
         >
-          Map
+          List
+        </button>
+        <button
+          className={`${styles.tab} ${activeTab === 'visual-map' ? styles.active : ''}`}
+          onClick={() => setActiveTab('visual-map')}
+        >
+          Pin Map
         </button>
         <button
           className={`${styles.tab} ${activeTab === 'gallery' ? styles.active : ''}`}
@@ -71,6 +78,7 @@ export default function GroupDetailClient({ group, userId }: GroupDetailClientPr
       <div className={styles.tabContent}>
         {activeTab === 'leaderboard' && <Leaderboard groupId={group.id} key={refreshKey} />}
         {activeTab === 'map' && <MapView groupId={group.id} userId={userId} key={refreshKey} />}
+        {activeTab === 'visual-map' && <VisualMap groupId={group.id} userId={userId} key={refreshKey} />}
         {activeTab === 'gallery' && <Gallery groupId={group.id} key={refreshKey} />}
       </div>
 

@@ -25,13 +25,35 @@ export default function Leaderboard({ groupId }: { groupId: string }) {
   const loadLeaderboard = async () => {
     const { data: plates } = await supabase
       .from('license_plates')
-      .select('user_id, state, points, profiles(username)')
+      .select('user_id, state, points')
       .eq('group_id', groupId)
+
+    if (!plates || plates.length === 0) {
+      setLeaderboard([])
+      setLoading(false)
+      return
+    }
+
+    // Get unique user IDs
+    const userIds = [...new Set(plates.map((p: any) => p.user_id))]
+
+    // Fetch all user profiles
+    const { data: profiles } = await supabase
+      .from('profiles')
+      .select('id, username')
+      .in('id', userIds)
+
+    const profileMap = new Map((profiles || []).map((p: any) => [p.id, p.username]))
 
     const stats = plates?.reduce((acc: any, plate: any) => {
       const userId = plate.user_id
       if (!acc[userId]) {
-        acc[userId] = { user_id: userId, username: plate.profiles?.username, states: new Set(), points: 0 }
+        acc[userId] = {
+          user_id: userId,
+          username: profileMap.get(userId) || 'Unknown User',
+          states: new Set(),
+          points: 0
+        }
       }
       acc[userId].states.add(plate.state)
       acc[userId].points += plate.points

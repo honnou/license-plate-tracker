@@ -1,0 +1,112 @@
+.visualMap {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.visualMap h2 {
+  color: var(--text-dark);
+  font-size: 28px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: var(--background-light);
+  border-radius: 8px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pin {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.pin.yours {
+  background: #667eea;
+}
+
+.pin.others {
+  background: #4CAF50;
+}
+
+.pin.uncollected {
+  background: #ccc;
+}
+
+.mapContainer {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  background: linear-gradient(to bottom, #87CEEB 0%, #E0F4FA 50%, #90EE90 100%);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.mapPin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: all 0.3s;
+  z-index: 1;
+}
+
+.mapPin:hover {
+  z-index: 10;
+  transform: translate(-50%, -50%) scale(1.3);
+}
+
+.mapPin.uncollected {
+  opacity: 0.4;
+}
+
+.pinDot {
+  font-size: 24px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  transition: all 0.3s;
+}
+
+.mapPin.yours .pinDot {
+  filter: drop-shadow(0 2px 8px rgba(102, 126, 234, 0.8)) drop-shadow(0 0 12px rgba(102, 126, 234, 0.6));
+}
+
+.mapPin.others .pinDot {
+  filter: drop-shadow(0 2px 8px rgba(76, 175, 80, 0.8)) drop-shadow(0 0 12px rgba(76, 175, 80, 0.6));
+}
+
+.pinLabel {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: bold;
+  white-space: nowrap;
+  margin-top: 4px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.mapPin:hover .pinLabel {
+  opacity: 1;
+}

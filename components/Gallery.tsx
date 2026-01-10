@@ -25,13 +25,33 @@ export default function Gallery({ groupId }: { groupId: string }) {
   }, [groupId])
 
   const loadPlates = async () => {
-    const { data } = await supabase
+    const { data: platesData } = await supabase
       .from('license_plates')
-      .select('*, profiles(username)')
+      .select('*')
       .eq('group_id', groupId)
       .order('spotted_at', { ascending: false })
 
-    setPlates(data?.map((p: any) => ({ ...p, username: p.profiles?.username })) || [])
+    if (!platesData || platesData.length === 0) {
+      setPlates([])
+      setLoading(false)
+      return
+    }
+
+    // Get unique user IDs
+    const userIds = [...new Set(platesData.map((p: any) => p.user_id))]
+
+    // Fetch all user profiles
+    const { data: profiles } = await supabase
+      .from('profiles')
+      .select('id, username')
+      .in('id', userIds)
+
+    const profileMap = new Map((profiles || []).map((p: any) => [p.id, p.username]))
+
+    setPlates(platesData.map((p: any) => ({
+      ...p,
+      username: profileMap.get(p.user_id) || 'Unknown User'
+    })))
     setLoading(false)
   }
 

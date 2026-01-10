@@ -16,10 +16,7 @@ export default async function DashboardPage() {
   // Fetch user's groups (RLS policy handles filtering)
   const { data: groups, error: groupsError } = await supabase
     .from('groups')
-    .select(`
-      *,
-      profiles!created_by(username)
-    `)
+    .select('*')
     .order('created_at', { ascending: false })
 
   console.log('Groups query result:', { groups, groupsError, userId: session.user.id })
@@ -30,13 +27,24 @@ export default async function DashboardPage() {
     .eq('id', session.user.id)
     .single()
 
+  // Fetch creator profiles for all groups
+  const creatorIds = groups?.map((g: any) => g.created_by).filter(Boolean) || []
+  const { data: creatorProfiles } = creatorIds.length > 0
+    ? await supabase
+        .from('profiles')
+        .select('id, username')
+        .in('id', creatorIds)
+    : { data: [] }
+
+  const profileMap = new Map((creatorProfiles || []).map((p: any) => [p.id, p.username]))
+
   const formattedGroups = groups?.map((g: any) => ({
     id: g.id,
     name: g.name,
     code: g.code,
     created_by: g.created_by,
     created_at: g.created_at,
-    creator_name: g.profiles?.username,
+    creator_name: profileMap.get(g.created_by),
   })) || []
 
   const username = (profile as { username: string } | null)?.username || session.user.email?.split('@')[0] || 'User'

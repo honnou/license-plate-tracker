@@ -42,11 +42,17 @@ export default async function GroupDetailPage({ params }: { params: { id: string
     .select('*', { count: 'exact', head: true })
     .eq('group_id', params.id)
 
+  const groupData = group as any
+
   return (
     <GroupDetailClient
       group={{
-        ...group,
-        creator_name: (group as any).profiles?.username,
+        id: groupData.id,
+        name: groupData.name,
+        code: groupData.code,
+        created_by: groupData.created_by,
+        created_at: groupData.created_at,
+        creator_name: groupData.profiles?.username,
         member_count: count || 0,
       }}
       userId={session.user.id}

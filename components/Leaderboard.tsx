@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { LeaderboardEntry } from '@/types'
+import { LeaderboardEntry, ALL_REGIONS } from '@/types'
 import styles from './Leaderboard.module.css'
 
 export default function Leaderboard({ groupId }: { groupId: string }) {
@@ -44,7 +44,7 @@ export default function Leaderboard({ groupId }: { groupId: string }) {
       states_collected: s.states.size,
       total_points: s.points,
       rank: i + 1,
-      states_remaining: 56 - s.states.size
+      states_remaining: ALL_REGIONS.length - s.states.size
     })).sort((a: any, b: any) => b.total_points - a.total_points || b.states_collected - a.states_collected)
 
     entries.forEach((e, i) => e.rank = i + 1)
@@ -62,7 +62,7 @@ export default function Leaderboard({ groupId }: { groupId: string }) {
       ) : (
         <div className={styles.table}>
           <div className={styles.header}>
-            <div>Rank</div><div>Player</div><div>States</div><div>Remaining</div><div>Points</div>
+            <div>Rank</div><div>Player</div><div>Regions</div><div>Remaining</div><div>Points</div>
           </div>
           {leaderboard.map(e => (
             <div key={e.user_id} className={`${styles.row} ${styles[`rank${e.rank}`]}`}>

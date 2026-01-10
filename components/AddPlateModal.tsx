@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { US_STATES, calculatePoints } from '@/types'
+import { US_STATES, CANADIAN_PROVINCES, calculatePoints } from '@/types'
 import styles from './Modal.module.css'
 
 interface AddPlateModalProps {
@@ -108,10 +108,15 @@ export default function AddPlateModal({ groupId, userId, onClose, onPlateAdded }
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="state">State/Territory</label>
+            <label htmlFor="state">State/Province</label>
             <select id="state" value={state} onChange={e => setState(e.target.value)} required>
-              <option value="">Select a state</option>
-              {US_STATES.map(s => <option key={s.code} value={s.code}>{s.name} ({s.code})</option>)}
+              <option value="">Select a region</option>
+              <optgroup label="🇺🇸 United States">
+                {US_STATES.map(s => <option key={s.code} value={s.code}>{s.name} ({s.code})</option>)}
+              </optgroup>
+              <optgroup label="🇨🇦 Canada">
+                {CANADIAN_PROVINCES.map(p => <option key={p.code} value={p.code}>{p.name} ({p.code})</option>)}
+              </optgroup>
             </select>
           </div>
 

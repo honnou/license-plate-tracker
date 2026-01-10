@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { US_STATES } from '@/types'
+import { US_STATES, CANADIAN_PROVINCES, ALL_REGIONS } from '@/types'
 import styles from './MapView.module.css'
 
 export default function MapView({ groupId, userId }: { groupId: string; userId: string }) {
@@ -45,11 +45,11 @@ export default function MapView({ groupId, userId }: { groupId: string; userId: 
   if (loading) return <div className="loading">Loading...</div>
 
   const collected = userStates.size
-  const remaining = US_STATES.length - collected
+  const remaining = ALL_REGIONS.length - collected
 
   return (
     <div className={styles.mapView}>
-      <h2>State Collection Map</h2>
+      <h2>North America Collection Map</h2>
       <div className={styles.stats}>
         <div><div className={styles.statValue}>{collected}</div><div className={styles.statLabel}>Collected</div></div>
         <div><div className={styles.statValue}>{remaining}</div><div className={styles.statLabel}>Remaining</div></div>
@@ -59,17 +59,39 @@ export default function MapView({ groupId, userId }: { groupId: string; userId: 
         <div className={styles.legendItem}><div className={`${styles.legendColor} ${styles.others}`}></div><span>Others collected</span></div>
         <div className={styles.legendItem}><div className={`${styles.legendColor} ${styles.uncollected}`}></div><span>Not collected</span></div>
       </div>
-      <div className={styles.grid}>
-        {US_STATES.map(s => {
-          const type = userStates.has(s.code) ? 'yours' : otherStates.has(s.code) ? 'others' : 'uncollected'
-          return (
-            <div key={s.code} className={`${styles.card} ${styles[type]}`}>
-              <div className={styles.code}>{s.code}</div>
-              <div className={styles.name}>{s.name}</div>
-              {type !== 'uncollected' && <div className={styles.check}>✓</div>}
-            </div>
-          )
-        })}
+
+      {/* Canadian Provinces Section */}
+      <div className={styles.section}>
+        <h3 className={styles.sectionTitle}>🇨🇦 Canadian Provinces & Territories</h3>
+        <div className={styles.grid}>
+          {CANADIAN_PROVINCES.map(p => {
+            const type = userStates.has(p.code) ? 'yours' : otherStates.has(p.code) ? 'others' : 'uncollected'
+            return (
+              <div key={p.code} className={`${styles.card} ${styles[type]}`}>
+                <div className={styles.code}>{p.code}</div>
+                <div className={styles.name}>{p.name}</div>
+                {type !== 'uncollected' && <div className={styles.check}>✓</div>}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* US States Section */}
+      <div className={styles.section}>
+        <h3 className={styles.sectionTitle}>🇺🇸 United States</h3>
+        <div className={styles.grid}>
+          {US_STATES.map(s => {
+            const type = userStates.has(s.code) ? 'yours' : otherStates.has(s.code) ? 'others' : 'uncollected'
+            return (
+              <div key={s.code} className={`${styles.card} ${styles[type]}`}>
+                <div className={styles.code}>{s.code}</div>
+                <div className={styles.name}>{s.name}</div>
+                {type !== 'uncollected' && <div className={styles.check}>✓</div>}
+              </div>
+            )
+          })}
+        </div>
       </div>
     </div>
   )

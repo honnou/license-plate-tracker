@@ -59,7 +59,7 @@ export default function JoinGroupModal({ onClose, onGroupJoined }: JoinGroupModa
         .insert({
           group_id: group.id,
           user_id: user.id,
-        })
+        } as any)
 
       if (memberError) throw memberError
 

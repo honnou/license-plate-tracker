@@ -53,7 +53,7 @@ export default function CreateGroupModal({ onClose, onGroupCreated }: CreateGrou
           name: name.trim(),
           code,
           created_by: user.id,
-        })
+        } as any)
         .select()
         .single()
 
@@ -65,7 +65,7 @@ export default function CreateGroupModal({ onClose, onGroupCreated }: CreateGrou
         .insert({
           group_id: group.id,
           user_id: user.id,
-        })
+        } as any)
 
       if (memberError) throw memberError
 

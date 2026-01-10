@@ -14,10 +14,12 @@ export default async function DashboardPage() {
   }
 
   // Fetch user's groups (RLS policy handles filtering)
-  const { data: groups } = await supabase
+  const { data: groups, error: groupsError } = await supabase
     .from('groups')
     .select('*, profiles!groups_created_by_fkey(username)')
     .order('created_at', { ascending: false })
+
+  console.log('Groups query result:', { groups, groupsError, userId: session.user.id })
 
   const { data: profile } = await supabase
     .from('profiles')

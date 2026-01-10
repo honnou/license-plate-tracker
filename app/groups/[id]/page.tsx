@@ -13,7 +13,18 @@ export default async function GroupDetailPage({ params }: { params: { id: string
     redirect('/login')
   }
 
-  // Verify user is a member of this group
+  // Fetch group details first
+  const { data: group } = await supabase
+    .from('groups')
+    .select('*')
+    .eq('id', params.id)
+    .single()
+
+  if (!group) {
+    redirect('/dashboard')
+  }
+
+  // Verify user is a member of this group OR is the creator
   const { data: membership } = await supabase
     .from('group_members')
     .select('id')
@@ -21,20 +32,18 @@ export default async function GroupDetailPage({ params }: { params: { id: string
     .eq('user_id', session.user.id)
     .single()
 
-  if (!membership) {
+  const isCreator = (group as any).created_by === session.user.id
+
+  if (!membership && !isCreator) {
     redirect('/dashboard')
   }
 
-  // Fetch group details
-  const { data: group } = await supabase
-    .from('groups')
-    .select('*, profiles!groups_created_by_fkey(username)')
-    .eq('id', params.id)
+  // Fetch creator profile
+  const { data: creatorProfile } = await supabase
+    .from('profiles')
+    .select('username')
+    .eq('id', (group as any).created_by)
     .single()
-
-  if (!group) {
-    redirect('/dashboard')
-  }
 
   // Fetch member count
   const { count } = await supabase
@@ -52,7 +61,7 @@ export default async function GroupDetailPage({ params }: { params: { id: string
         code: groupData.code,
         created_by: groupData.created_by,
         created_at: groupData.created_at,
-        creator_name: groupData.profiles?.username,
+        creator_name: creatorProfile?.username,
         member_count: count || 0,
       }}
       userId={session.user.id}

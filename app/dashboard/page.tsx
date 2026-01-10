@@ -43,10 +43,12 @@ export default async function DashboardPage() {
     creator_name: g.groups.profiles?.username,
   })) || []
 
+  const username = profile?.username || session.user.email?.split('@')[0] || 'User'
+
   return (
     <DashboardClient
       groups={formattedGroups}
-      username={profile?.username || ''}
+      username={username}
     />
   )
 }

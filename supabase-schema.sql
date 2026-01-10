@@ -80,7 +80,7 @@ ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
 -- Groups policies
 CREATE POLICY "Users can view groups they are members of"
   ON groups FOR SELECT
-  USING (is_group_member(id, auth.uid()));
+  USING (is_group_member(id, auth.uid()) OR created_by = auth.uid());
 
 CREATE POLICY "Users can create groups"
   ON groups FOR INSERT

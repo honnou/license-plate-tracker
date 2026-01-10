@@ -1,7 +1,8 @@
 -- Fix for infinite recursion in RLS policies
--- Run this in Supabase SQL Editor to fix the group_members policy
+-- Run this in Supabase SQL Editor to fix all RLS policy issues
 
 -- Drop the problematic policies
+DROP POLICY IF EXISTS "Users can view groups they are members of" ON groups;
 DROP POLICY IF EXISTS "Users can view members of their groups" ON group_members;
 DROP POLICY IF EXISTS "Users can view plates in their groups" ON license_plates;
 

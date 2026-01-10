@@ -13,20 +13,11 @@ export default async function DashboardPage() {
     redirect('/login')
   }
 
-  // Fetch user's groups
+  // Fetch user's groups (RLS policy handles filtering)
   const { data: groups } = await supabase
-    .from('group_members')
-    .select(`
-      groups (
-        id,
-        name,
-        code,
-        created_by,
-        created_at,
-        profiles!groups_created_by_fkey (username)
-      )
-    `)
-    .eq('user_id', session.user.id)
+    .from('groups')
+    .select('*, profiles!groups_created_by_fkey(username)')
+    .order('created_at', { ascending: false })
 
   const { data: profile } = await supabase
     .from('profiles')
@@ -35,12 +26,12 @@ export default async function DashboardPage() {
     .single()
 
   const formattedGroups = groups?.map((g: any) => ({
-    id: g.groups.id,
-    name: g.groups.name,
-    code: g.groups.code,
-    created_by: g.groups.created_by,
-    created_at: g.groups.created_at,
-    creator_name: g.groups.profiles?.username,
+    id: g.id,
+    name: g.name,
+    code: g.code,
+    created_by: g.created_by,
+    created_at: g.created_at,
+    creator_name: g.profiles?.username,
   })) || []
 
   const username = (profile as { username: string } | null)?.username || session.user.email?.split('@')[0] || 'User'

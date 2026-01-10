@@ -4,39 +4,49 @@ A fun web application to track and compete with friends to collect license plate
 
 ## Features
 
-- **User Authentication** - Secure sign up and login system
+- **User Authentication** - Supabase Auth with email/password
 - **Friend Groups** - Create or join groups to compete with friends
 - **License Plate Logging**
-  - Upload photos of license plates
+  - Upload photos with Supabase Storage
   - Manual entry of state/territory
   - Vanity plate flag (+2 bonus points)
   - Special/commemorative plates (+3 bonus points)
-- **Leaderboard** - Track rankings, states collected, and points
-- **Interactive Map** - Visual progress tracking of all 50 states + territories
+- **Real-time Leaderboard** - Live rankings, states collected, and points
+- **Interactive Map** - Visual progress tracking of all 56 states/territories
 - **Photo Gallery** - View all collected license plates with details
 
 ## Tech Stack
 
-### Backend
-- Node.js with Express
-- TypeScript
-- SQLite database
-- JWT authentication
-- Multer for file uploads
+Built with the **Vercel-optimized stack**:
 
-### Frontend
-- React with TypeScript
-- React Router for navigation
-- Axios for API calls
-- CSS for styling
+- **Next.js 14** - React framework with App Router and TypeScript
+- **Supabase** - Backend-as-a-Service for auth, database, and storage
+  - PostgreSQL database with Row Level Security
+  - Built-in authentication
+  - Storage for license plate photos
+  - Real-time subscriptions
+- **Vercel** - Deployment platform (optimized for Next.js)
 
 ## Getting Started
 
 ### Prerequisites
-- Node.js (v16 or higher)
-- npm or yarn
+- Node.js 18+ or higher
+- Supabase account (free tier available)
+- Vercel account for deployment (optional)
 
-### Installation
+### 1. Supabase Setup
+
+1. Create a new project at [supabase.com](https://supabase.com)
+
+2. Run the database schema in your Supabase SQL editor:
+   - Copy the contents of `supabase-schema.sql`
+   - Paste and execute in Supabase SQL Editor
+
+3. Get your Supabase credentials:
+   - Go to Project Settings > API
+   - Copy the `Project URL` and `anon public` key
+
+### 2. Local Development
 
 1. Clone the repository:
 ```bash
@@ -44,108 +54,59 @@ git clone <repository-url>
 cd license-plate-tracker
 ```
 
-2. Install all dependencies:
+2. Install dependencies:
 ```bash
-npm run install:all
+npm install
 ```
 
-This will install dependencies for the root, frontend, and backend.
+3. Create `.env.local` file:
+```env
+NEXT_PUBLIC_SUPABASE_URL=your-project-url.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+```
 
-### Running the Application
-
-#### Development Mode
-
-Run both frontend and backend concurrently:
+4. Run the development server:
 ```bash
 npm run dev
 ```
 
-This will start:
-- Backend server on http://localhost:5000
-- Frontend development server on http://localhost:3000
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-#### Running Separately
+### 3. Deploy to Vercel
 
-Backend only:
-```bash
-npm run dev:backend
-```
+1. Push your code to GitHub
 
-Frontend only:
-```bash
-npm run dev:frontend
-```
+2. Import project in [Vercel](https://vercel.com)
 
-### Production Build
+3. Add environment variables:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 
-1. Build the application:
-```bash
-npm run build
-```
-
-2. Start the production server:
-```bash
-npm start
-```
-
-## Environment Variables
-
-Create a `.env` file in the `backend` directory (use `.env.example` as template):
-
-```env
-PORT=5000
-JWT_SECRET=your-secret-key-change-this-in-production
-DATABASE_PATH=./database.sqlite
-UPLOAD_PATH=./uploads
-```
+4. Deploy! Vercel will automatically build and deploy your app.
 
 ## Project Structure
 
 ```
 license-plate-tracker/
-├── backend/
-│   ├── src/
-│   │   ├── routes/          # API route handlers
-│   │   ├── middleware/      # Authentication middleware
-│   │   ├── utils/           # Helper functions
-│   │   ├── database.ts      # Database initialization
-│   │   ├── server.ts        # Express server setup
-│   │   └── types.ts         # TypeScript types
-│   ├── uploads/             # Uploaded images
-│   └── package.json
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/      # React components
-│   │   ├── context/         # React context (auth)
-│   │   ├── pages/           # Page components
-│   │   ├── services/        # API service layer
-│   │   └── types.ts         # TypeScript types
-│   └── package.json
-└── package.json
-```
-
-## API Endpoints
-
-### Authentication
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - Login user
-
-### Groups
-- `GET /api/groups` - Get user's groups
-- `POST /api/groups` - Create new group
-- `POST /api/groups/join` - Join group by code
-- `GET /api/groups/:groupId/members` - Get group members
-
-### License Plates
-- `POST /api/plates` - Add new license plate (with photo upload)
-- `GET /api/plates/group/:groupId` - Get all plates in group
-- `GET /api/plates/group/:groupId/user` - Get user's plates in group
-- `GET /api/plates/group/:groupId/user/states` - Get states collected by user
-
-### Leaderboard
-- `GET /api/leaderboard/:groupId` - Get group leaderboard
-- `GET /api/leaderboard/:groupId/user/:userId` - Get user stats
+├── app/                     # Next.js App Router pages
+│   ├── dashboard/          # Dashboard page
+│   ├── groups/[id]/        # Group detail page
+│   ├── login/              # Login page
+│   ├── register/           # Registration page
+│   ├── globals.css         # Global styles
+│   └── layout.tsx          # Root layout
+├── components/             # React components
+│   ├── AddPlateModal.tsx
+│   ├── DashboardClient.tsx
+│   ├── Gallery.tsx
+│   ├── GroupCard.tsx
+│   ├── Leaderboard.tsx
+│   └── MapView.tsx
+├── lib/
+│   └── supabase/          # Supabase client setup
+├── types/                  # TypeScript types
+├── middleware.ts           # Next.js middleware for auth
+└── supabase-schema.sql    # Database schema
 
 ## How to Play
 

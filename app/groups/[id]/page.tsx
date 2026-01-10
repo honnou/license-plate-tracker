@@ -32,6 +32,10 @@ export default async function GroupDetailPage({ params }: { params: { id: string
     .eq('id', params.id)
     .single()
 
+  if (!group) {
+    redirect('/dashboard')
+  }
+
   // Fetch member count
   const { count } = await supabase
     .from('group_members')
@@ -42,7 +46,7 @@ export default async function GroupDetailPage({ params }: { params: { id: string
     <GroupDetailClient
       group={{
         ...group,
-        creator_name: group.profiles?.username,
+        creator_name: (group as any).profiles?.username,
         member_count: count || 0,
       }}
       userId={session.user.id}

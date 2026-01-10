@@ -31,6 +31,29 @@ body {
 body {
   background: var(--primary-gradient);
   min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: "🚗 🚙 🚕 🛣️ 🗺️ 🚗 🚙 🚕 🛣️ 🗺️ 🚗 🚙 🚕 🛣️ 🗺️ 🚗 🚙 🚕 🛣️ 🗺️ 🚗 🚙 🚕 🛣️ 🗺️ 🚗 🚙 🚕 🛣️ 🗺️ 🚗 🚙 🚕 🛣️ 🗺️ 🚗 🚙 🚕 🛣️ 🗺️ 🚗 🚙 🚕 🛣️ 🗺️ 🚗 🚙 🚕 🛣️ 🗺️ 🚗 🚙 🚕 🛣️ 🗺️ 🚗 🚙 🚕 🛣️ 🗺️";
+  position: fixed;
+  top: -50px;
+  left: -50px;
+  right: -50px;
+  bottom: -50px;
+  opacity: 0.06;
+  font-size: 40px;
+  line-height: 80px;
+  word-wrap: break-word;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  letter-spacing: 20px;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
 }
 
 a {

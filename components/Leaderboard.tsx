@@ -35,7 +35,7 @@ export default function Leaderboard({ groupId }: { groupId: string }) {
     }
 
     // Get unique user IDs
-    const userIds = [...new Set(plates.map((p: any) => p.user_id))]
+    const userIds = Array.from(new Set(plates.map((p: any) => p.user_id)))
 
     // Fetch all user profiles
     const { data: profiles } = await supabase

@@ -38,7 +38,7 @@ export default function Gallery({ groupId }: { groupId: string }) {
     }
 
     // Get unique user IDs
-    const userIds = [...new Set(platesData.map((p: any) => p.user_id))]
+    const userIds = Array.from(new Set(platesData.map((p: any) => p.user_id)))
 
     // Fetch all user profiles
     const { data: profiles } = await supabase

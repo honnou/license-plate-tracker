@@ -79,7 +79,7 @@ export default function GroupDetailClient({ group, userId }: GroupDetailClientPr
         {activeTab === 'leaderboard' && <Leaderboard groupId={group.id} key={refreshKey} />}
         {activeTab === 'map' && <MapView groupId={group.id} userId={userId} key={refreshKey} />}
         {activeTab === 'visual-map' && <VisualMap groupId={group.id} userId={userId} key={refreshKey} />}
-        {activeTab === 'gallery' && <Gallery groupId={group.id} key={refreshKey} />}
+        {activeTab === 'gallery' && <Gallery groupId={group.id} userId={userId} key={refreshKey} />}
       </div>
 
       {showAddPlateModal && (

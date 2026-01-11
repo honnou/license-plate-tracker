@@ -22,3 +22,18 @@
 .details h3 { font-size: 32px; color: var(--text-dark); margin-bottom: 20px; }
 .details p { font-size: 16px; color: var(--text-light); margin-bottom: 12px; }
 .detailPoints { color: var(--primary-color); font-weight: 600; font-size: 18px; margin-top: 15px; }
+.deleteButton {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  background: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.deleteButton:hover:not(:disabled) { background: #cc0000; transform: scale(1.02); }
+.deleteButton:disabled { opacity: 0.6; cursor: not-allowed; }

@@ -6,10 +6,11 @@ import Image from 'next/image'
 import { LicensePlate } from '@/types'
 import styles from './Gallery.module.css'
 
-export default function Gallery({ groupId }: { groupId: string }) {
+export default function Gallery({ groupId, userId }: { groupId: string; userId: string }) {
   const [plates, setPlates] = useState<LicensePlate[]>([])
   const [selectedPlate, setSelectedPlate] = useState<LicensePlate | null>(null)
   const [loading, setLoading] = useState(true)
+  const [deleting, setDeleting] = useState(false)
   const supabase = createClient()
 
   useEffect(() => {
@@ -60,6 +61,32 @@ export default function Gallery({ groupId }: { groupId: string }) {
     return data.publicUrl
   }
 
+  const deletePlate = async (plate: LicensePlate) => {
+    if (!confirm(`Delete this ${plate.state} plate? This cannot be undone.`)) return
+
+    setDeleting(true)
+    try {
+      // Delete from storage
+      await supabase.storage.from('license-plates').remove([plate.photo_path])
+
+      // Delete from database
+      const { error } = await supabase
+        .from('license_plates')
+        .delete()
+        .eq('id', plate.id)
+
+      if (error) throw error
+
+      setSelectedPlate(null)
+      await loadPlates()
+    } catch (error) {
+      console.error('Error deleting plate:', error)
+      alert('Failed to delete plate. Please try again.')
+    } finally {
+      setDeleting(false)
+    }
+  }
+
   if (loading) return <div className="loading">Loading...</div>
 
   return (
@@ -106,6 +133,15 @@ export default function Gallery({ groupId }: { groupId: string }) {
               {selectedPlate.is_vanity && <p>✨ Vanity Plate</p>}
               {selectedPlate.is_special && <p>⭐ Special Plate{selectedPlate.special_type ? `: ${selectedPlate.special_type}` : ''}</p>}
               <p className={styles.detailPoints}>{selectedPlate.points} points</p>
+              {selectedPlate.user_id === userId && (
+                <button
+                  className={styles.deleteButton}
+                  onClick={() => deletePlate(selectedPlate)}
+                  disabled={deleting}
+                >
+                  {deleting ? 'Deleting...' : '🗑️ Delete Photo'}
+                </button>
+              )}
             </div>
           </div>
         </div>

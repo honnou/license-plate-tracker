@@ -102,3 +102,65 @@
 .mapPin:hover .pinLabel {
   opacity: 1;
 }
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .visualMap {
+    padding: 20px 15px;
+  }
+
+  .visualMap h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .mapContainer {
+    height: 400px;
+  }
+
+  .pinDot {
+    font-size: 18px;
+  }
+
+  .pinDot::before {
+    width: 22px;
+    height: 22px;
+  }
+
+  .mapPin.yours .pinDot::before {
+    box-shadow: 0 0 15px rgba(102, 126, 234, 0.7), 0 0 30px rgba(102, 126, 234, 0.3);
+  }
+
+  .mapPin.others .pinDot::before {
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.7), 0 0 30px rgba(76, 175, 80, 0.3);
+  }
+
+  .pinLabel {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+
+  /* Show labels on tap for mobile */
+  .mapPin:active .pinLabel {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .mapContainer {
+    height: 300px;
+  }
+
+  .pinDot {
+    font-size: 14px;
+  }
+
+  .pinDot::before {
+    width: 18px;
+    height: 18px;
+  }
+
+  .pinLabel {
+    font-size: 9px;
+  }
+}

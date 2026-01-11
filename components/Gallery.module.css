@@ -37,3 +37,67 @@
 }
 .deleteButton:hover:not(:disabled) { background: #cc0000; transform: scale(1.02); }
 .deleteButton:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .gallery {
+    padding: 20px 15px;
+  }
+
+  .gallery h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+
+  .stats {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+  }
+
+  .image {
+    height: 120px;
+  }
+
+  .state {
+    font-size: 16px;
+  }
+
+  .user {
+    font-size: 12px;
+  }
+
+  .modal {
+    padding: 10px;
+  }
+
+  .modalContent {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+
+  .details {
+    padding: 20px;
+  }
+
+  .details h3 {
+    font-size: 24px;
+  }
+
+  .details p {
+    font-size: 14px;
+  }
+
+  .close {
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+    top: 10px;
+    right: 10px;
+  }
+}

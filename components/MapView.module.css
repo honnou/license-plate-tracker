@@ -19,3 +19,64 @@
 .check { position: absolute; top: 5px; right: 5px; font-size: 18px; font-weight: bold; }
 .section { margin-top: 40px; }
 .sectionTitle { color: var(--text-dark); font-size: 20px; font-weight: 700; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--border-color); }
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .mapView {
+    padding: 20px 15px;
+  }
+
+  .mapView h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+
+  .stats {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .statValue {
+    font-size: 28px;
+  }
+
+  .statLabel {
+    font-size: 12px;
+  }
+
+  .legend {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+  }
+
+  .card {
+    padding: 15px 10px;
+  }
+
+  .code {
+    font-size: 16px;
+  }
+
+  .name {
+    font-size: 10px;
+  }
+
+  .check {
+    font-size: 14px;
+  }
+
+  .section {
+    margin-top: 30px;
+  }
+
+  .sectionTitle {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+}

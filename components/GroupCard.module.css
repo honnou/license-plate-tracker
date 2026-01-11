@@ -49,3 +49,23 @@
   font-size: 12px !important;
   color: #999 !important;
 }
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .groupCard {
+    padding: 20px;
+  }
+
+  .groupHeader h3 {
+    font-size: 18px;
+  }
+
+  .groupCode {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .groupInfo p {
+    font-size: 13px;
+  }
+}

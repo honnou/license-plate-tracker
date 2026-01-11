@@ -12,3 +12,61 @@
 .rank1 { background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%); border-color: #ffd700; }
 .rank2 { background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%); border-color: #c0c0c0; }
 .rank3 { background: linear-gradient(135deg, #cd7f32 0%, #e6a157 100%); border-color: #cd7f32; }
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .leaderboard {
+    padding: 20px 15px;
+  }
+
+  .leaderboard h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .header,
+  .row {
+    grid-template-columns: 60px 1fr 80px 100px 80px;
+    gap: 8px;
+    padding: 12px 10px;
+    font-size: 14px;
+  }
+
+  .rank {
+    font-size: 18px;
+  }
+
+  .player {
+    font-size: 14px;
+  }
+
+  .points {
+    font-size: 16px;
+  }
+
+  .header {
+    font-size: 12px;
+  }
+
+  .empty {
+    padding: 40px 15px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header,
+  .row {
+    grid-template-columns: 50px 1fr 70px;
+    gap: 5px;
+    padding: 10px 8px;
+  }
+
+  /* Hide States/Regions and Vanity columns on very small screens */
+  .header > div:nth-child(3),
+  .header > div:nth-child(4),
+  .row > div:nth-child(3),
+  .row > div:nth-child(4) {
+    display: none;
+  }
+}

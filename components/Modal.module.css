@@ -122,3 +122,53 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .modalOverlay {
+    padding: 10px;
+  }
+
+  .modalContent {
+    padding: 20px;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .modalHeader h2 {
+    font-size: 20px;
+  }
+
+  .closeButton {
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+  }
+
+  .formGroup {
+    margin-bottom: 15px;
+  }
+
+  .formGroup label {
+    font-size: 13px;
+  }
+
+  .formGroup input,
+  .formGroup select,
+  .formGroup textarea {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .modalFooter {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+
+  .cancelButton,
+  .submitButton {
+    width: 100%;
+    padding: 12px;
+  }
+}

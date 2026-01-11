@@ -289,3 +289,53 @@ button {
   font-size: 18px;
   padding: 50px;
 }
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
+
+  /* Smaller road on mobile */
+  #root::before {
+    height: 50px;
+  }
+
+  #root {
+    padding-bottom: 50px;
+  }
+
+  #root::after {
+    bottom: 22px;
+    height: 6px;
+  }
+
+  /* Smaller, repositioned highway sign */
+  .highway-sign {
+    bottom: 70px;
+    right: 15px;
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  .highway-sign::before {
+    font-size: 18px;
+    margin-bottom: 3px;
+  }
+
+  /* Smaller car */
+  body > div::before {
+    font-size: 28px;
+    bottom: 10px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+}

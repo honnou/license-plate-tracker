@@ -139,6 +139,27 @@
   padding: 40px;
 }
 
+/* Team cars driving on the road */
+.teamCar {
+  position: fixed;
+  bottom: 15px;
+  left: -60px;
+  font-size: 40px;
+  z-index: 1001;
+  pointer-events: none;
+  animation: carDrive 8s linear infinite;
+  transform: scaleX(-1); /* Flip car to face right */
+}
+
+@keyframes carDrive {
+  0% {
+    left: -60px;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
 /* Mobile responsive styles */
 @media (max-width: 768px) {
   .header {
@@ -195,5 +216,11 @@
 
   .tabContent {
     padding: 20px 15px;
+  }
+
+  /* Smaller cars on mobile */
+  .teamCar {
+    font-size: 28px;
+    bottom: 10px;
   }
 }

@@ -91,10 +91,25 @@ export default function GroupDetailClient({ group, userId }: GroupDetailClientPr
         />
       )}
 
-      {/* Highway Sign */}
-      <div className="highway-sign">
-        25 Miles to<br />Seattle
-      </div>
+      {/* Cars driving on the road - one for each team member (hidden on Gallery tab) */}
+      {activeTab !== 'gallery' && Array.from({ length: group.member_count }).map((_, i) => {
+        const carColors = ['🚗', '🚙', '🚕', '🚐', '🚓'] // Different colored/styled cars
+        const carEmoji = carColors[i % carColors.length]
+        const delay = i * 1.6 // Stagger the cars
+
+        return (
+          <div
+            key={i}
+            className={styles.teamCar}
+            style={{
+              animationDelay: `${delay}s`,
+              filter: `hue-rotate(${i * 72}deg)` // Rotate hue for color variation
+            }}
+          >
+            {carEmoji}
+          </div>
+        )
+      })}
     </div>
   )
 }

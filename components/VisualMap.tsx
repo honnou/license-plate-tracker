@@ -129,6 +129,42 @@ export default function VisualMap({ groupId, userId }: { groupId: string; userId
       </div>
 
       <div className={styles.mapContainer}>
+        {/* SVG Boundary Lines */}
+        <svg className={styles.boundaryLines} viewBox="0 0 100 100" preserveAspectRatio="none">
+          {/* Canada-US Border */}
+          <line x1="5" y1="15" x2="75" y2="15" stroke="rgba(100, 100, 100, 0.3)" strokeWidth="0.3" strokeDasharray="1,1" />
+
+          {/* US State Boundaries - Vertical divisions */}
+          <line x1="12" y1="15" x2="12" y2="65" stroke="rgba(100, 100, 100, 0.2)" strokeWidth="0.2" />
+          <line x1="22" y1="15" x2="22" y2="65" stroke="rgba(100, 100, 100, 0.2)" strokeWidth="0.2" />
+          <line x1="35" y1="15" x2="35" y2="65" stroke="rgba(100, 100, 100, 0.2)" strokeWidth="0.2" />
+          <line x1="46" y1="15" x2="46" y2="65" stroke="rgba(100, 100, 100, 0.2)" strokeWidth="0.2" />
+          <line x1="55" y1="15" x2="55" y2="65" stroke="rgba(100, 100, 100, 0.2)" strokeWidth="0.2" />
+
+          {/* US State Boundaries - Horizontal divisions */}
+          <line x1="5" y1="30" x2="70" y2="30" stroke="rgba(100, 100, 100, 0.2)" strokeWidth="0.2" />
+          <line x1="10" y1="42" x2="65" y2="42" stroke="rgba(100, 100, 100, 0.2)" strokeWidth="0.2" />
+          <line x1="15" y1="54" x2="60" y2="54" stroke="rgba(100, 100, 100, 0.2)" strokeWidth="0.2" />
+
+          {/* Canadian Province Boundaries - Vertical */}
+          <line x1="14" y1="5" x2="14" y2="15" stroke="rgba(100, 100, 100, 0.2)" strokeWidth="0.2" />
+          <line x1="22" y1="5" x2="22" y2="15" stroke="rgba(100, 100, 100, 0.2)" strokeWidth="0.2" />
+          <line x1="30" y1="5" x2="30" y2="15" stroke="rgba(100, 100, 100, 0.2)" strokeWidth="0.2" />
+          <line x1="42" y1="5" x2="42" y2="15" stroke="rgba(100, 100, 100, 0.2)" strokeWidth="0.2" />
+          <line x1="55" y1="5" x2="55" y2="15" stroke="rgba(100, 100, 100, 0.2)" strokeWidth="0.2" />
+
+          {/* Coastal outlines (simplified) */}
+          <path d="M 5 15 L 5 65 L 15 70 L 60 70 L 70 65 L 70 30"
+                stroke="rgba(70, 130, 180, 0.4)"
+                strokeWidth="0.4"
+                fill="none" />
+          <path d="M 5 5 L 5 15 M 70 5 L 70 15"
+                stroke="rgba(70, 130, 180, 0.4)"
+                strokeWidth="0.4"
+                fill="none" />
+        </svg>
+
+        {/* State/Province Pins */}
         {Object.entries(STATE_POSITIONS).map(([code, pos]) => {
           const type = userStates.has(code) ? 'yours' : otherStates.has(code) ? 'others' : 'uncollected'
           return (

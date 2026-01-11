@@ -92,7 +92,7 @@ export default function GroupDetailClient({ group, userId }: GroupDetailClientPr
       )}
 
       {/* Cars driving on the road - one for each team member (hidden on Gallery tab) */}
-      {activeTab !== 'gallery' && Array.from({ length: group.member_count }).map((_, i) => {
+      {activeTab !== 'gallery' && Array.from({ length: group.member_count || 1 }).map((_, i) => {
         const carColors = ['🚗', '🚙', '🚕', '🚐', '🚓'] // Different colored/styled cars
         const carEmoji = carColors[i % carColors.length]
         const delay = i * 1.6 // Stagger the cars
